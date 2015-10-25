@@ -11,7 +11,16 @@
 
 module.exports.bootstrap = function(cb) {
 
-  // It's very important to trigger this callback method when you are finished
-  // with the bootstrap!  (otherwise your server will never lift, since it's waiting on the bootstrap)
+
+  var Promise = require("bluebird");
+  var readdir = Promise.promisify(require("fs").readdir);
+
+  readdir('media/').then(function(files){
+    _.forEach(files, function(file) {
+      MetadataService.getMetadataFromFilename('media/' + file).then(function(metadata) {
+      })
+    });
+  });
+
   cb();
 };
