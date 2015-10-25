@@ -8,15 +8,38 @@
 module.exports = {
 
 	find: function(req, res) {
-		return res.send('asd');
+		return Albums.find(req.allParams())
+      .then(function(albums) {
+        res.json(albums);
+      })
+      .catch(function(e) {
+        console.error(e);
+        res.serverError('Error');
+      });
 	},
 
 	findOne: function(req, res) {
-		return res.send('asd1');
+    var params = req.allParams();
+		return Albums.findOne(req.allParams())
+      .then(function findCB(album){
+        res.json(album);
+      })
+      .catch(function(e) {
+        console.error(e);
+        res.serverError('Error');
+      });
 	},
 
 	create: function(req, res) {
-		return res.send('create');
+    var params = req.allParams();
+		return Albums.create(req.allParams())
+      .then(function findCB(album){
+        res.json(album);
+      })
+      .catch(function(e) {
+        console.error(e);
+        res.serverError('Error');
+      });
 	},
 
 	update: function(req, res) {
