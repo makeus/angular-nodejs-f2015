@@ -1,3 +1,1 @@
-# sailspro
-
-a [Sails](http://sailsjs.org) application
+# angular-nodejs-f2015
