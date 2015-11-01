@@ -8,7 +8,7 @@
 module.exports = {
 
 	find: function(req, res) {
-		return Albums.find(req.allParams())
+		return Album.find(req.allParams())
       .then(function(albums) {
         res.json(albums);
       })
@@ -20,7 +20,7 @@ module.exports = {
 
 	findOne: function(req, res) {
     var params = req.allParams();
-		return Albums.findOne(req.allParams())
+		return Album.findOne(req.allParams())
       .then(function findCB(album){
         res.json(album);
       })
@@ -32,7 +32,7 @@ module.exports = {
 
 	create: function(req, res) {
     var params = req.allParams();
-		return Albums.create(req.allParams())
+		return Album.create(req.allParams())
       .then(function findCB(album){
         res.json(album);
       })

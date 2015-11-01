@@ -6,9 +6,26 @@
 */
 
 module.exports = {
-
   attributes: {
-
+    id: {
+      type: 'integer',
+      autoIncrement: true,
+      primaryKey: true
+    },
+    title: {
+      type: 'string',
+      required: true,
+      defaultsTo: 'Unknown Track'
+    },
+    artist: {
+      type: 'string',
+      required: true,
+      defaultsTo: 'Unknown Arist'
+    },
+    trackNumber: 'integer',
+    album: {
+      model: 'album'
+    }
   }
 };
 

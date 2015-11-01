@@ -10,17 +10,7 @@
  */
 
 module.exports.bootstrap = function(cb) {
-
-
-  var Promise = require("bluebird");
-  var readdir = Promise.promisify(require("fs").readdir);
-
-  readdir('media/').then(function(files){
-    _.forEach(files, function(file) {
-      MetadataService.getMetadataFromFilename('media/' + file).then(function(metadata) {
-      })
-    });
-  });
-
+  MediaParseService.parseDirectoryMedias(sails.config.files.media);
   cb();
 };
+

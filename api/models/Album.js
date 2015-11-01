@@ -12,16 +12,21 @@ module.exports = {
   		autoIncrement: true,
     	primaryKey: true
   	},
-    artist: {
-		type: 'string',
-      	required: true,
-      	defaultsTo: 'Unknown Arist'
-    },
     name: {
-		type: 'string',
-      	required: true,
-      	defaultsTo: 'Unknown Album'
+	    type: 'string',
+    	required: true,
+    	defaultsTo: 'Unknown Album'
+    },
+    year: 'string',
+    genre: 'string',
+    songs: {
+      collection: 'song',
+      via: 'album'
     }
+  },
+
+  findOneByName: function(name) {
+    return Album.findOne({name: name});
   }
 }
 
