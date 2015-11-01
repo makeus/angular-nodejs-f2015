@@ -1,7 +1,7 @@
 /**
 * Album.js
 *
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @description :: Metadata for a single album containing songs
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
@@ -21,7 +21,7 @@ module.exports = {
     genre: 'string',
     cover: 'string',
     songs: {
-      collection: 'song',
+      collection: 'songInfo',
       via: 'album'
     }
   },

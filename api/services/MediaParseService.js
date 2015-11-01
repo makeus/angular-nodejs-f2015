@@ -24,7 +24,7 @@ module.exports = {
                 return Album.update({id: album.id}, {cover: coverUrl});
               });
             }
-            return Song.create({
+            return SongInfo.create({
                 title: metadata.title,
                 artist: metadata.artist,
                 trackNumber: metadata.track.no,

@@ -1,7 +1,7 @@
 /**
-* Song.js
+* SongInfo.js
 *
-* @description :: TODO: You might write a short summary of how this model works and what it represents here.
+* @description :: Metadata for a single song
 * @docs        :: http://sailsjs.org/#!documentation/models
 */
 
