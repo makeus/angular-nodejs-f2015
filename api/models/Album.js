@@ -21,7 +21,7 @@ module.exports = {
     genre: 'string',
     cover: 'string',
     songs: {
-      collection: 'songInfo',
+      collection: 'song',
       via: 'album'
     }
   },

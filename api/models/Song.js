@@ -1,5 +1,5 @@
 /**
-* SongInfo.js
+* Song.js
 *
 * @description :: Metadata for a single song
 * @docs        :: http://sailsjs.org/#!documentation/models
@@ -25,6 +25,15 @@ module.exports = {
     trackNumber: 'integer',
     album: {
       model: 'album'
+    },
+    fd: {
+      type: 'string',
+      required: true
+    },
+    toJSON: function() {
+      var obj = this.toObject();
+      delete obj.fd;
+      return obj;
     }
   }
 };
