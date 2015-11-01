@@ -19,6 +19,7 @@ module.exports = {
     },
     year: 'string',
     genre: 'string',
+    cover: 'string',
     songs: {
       collection: 'song',
       via: 'album'

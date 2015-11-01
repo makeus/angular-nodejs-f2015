@@ -1,4 +1,4 @@
 module.exports.files = {
-  covers: 'assets/images/covers/',
+  covers: '/images/covers/',
   media: 'media/'
 };

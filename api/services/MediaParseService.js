@@ -20,7 +20,9 @@ module.exports = {
           })
           .then(function(album) {
             if(metadata.picture.length) {
-              CoverService.uploadCover(album.id, metadata.picture[0]);
+              CoverService.uploadCover(album.id, metadata.picture[0]).then(function(coverUrl) {
+                return Album.update({id: album.id}, {cover: coverUrl});
+              });
             }
             return Song.create({
                 title: metadata.title,

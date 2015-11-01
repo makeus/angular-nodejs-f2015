@@ -8,7 +8,8 @@ module.exports = {
       if(!_.contains(imageFormats, picture.format)) {
         throw 'Unsupported image format';
       }
-      return fs.writeFileAsync(sails.config.files.covers + albumId + '.' + picture.format, picture.data);
+      var url = sails.config.files.covers + albumId + '.' + picture.format;
+      return fs.writeFileAsync('assets' + url, picture.data).then(() => {return url});
     },
     getCover: function(albumId) {
       var Promise = require("bluebird");
