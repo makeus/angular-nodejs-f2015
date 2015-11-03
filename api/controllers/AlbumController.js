@@ -31,23 +31,15 @@ module.exports = {
 	},
 
 	create: function(req, res) {
-    var params = req.allParams();
-		return Album.create(req.allParams())
-      .then(function findCB(album){
-        res.json(album);
-      })
-      .catch(function(e) {
-        console.error(e);
-        res.serverError('Error');
-      });
+    return res.badRequest('Not supported');
 	},
 
 	update: function(req, res) {
-		return res.send('update');
+		return res.badRequest('Not supported');
 	},
 
 	destroy: function(req, res) {
-		return res.send('destroy');
+		return res.badRequest('Not supported');
 	},
 };
 
