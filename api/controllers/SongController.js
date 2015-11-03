@@ -14,7 +14,7 @@ module.exports = {
 
       Promise.each(uploadedFiles, function(file) {
         return MediaParseService.parseMediaFile(file.fd).then(function(song) {
-          songs.push(_.without(song, 'fd'));
+          songs.push(_.omit(song, 'fd'));
         });
       })
       .catch(function(e) {
