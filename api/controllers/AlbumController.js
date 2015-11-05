@@ -8,24 +8,21 @@
 module.exports = {
 
 	find: function(req, res) {
-		return Album.find(req.param('id'))
+		return Album.find(req.allParams())
       .then(function(albums) {
-        res.json(albums);
+        res.ok(albums);
       })
       .catch(function(e) {
-        console.error(e);
         res.serverError('Error');
       });
 	},
 
 	findOne: function(req, res) {
-    var params = req.allParams();
-		return Album.findOne(req.allParams()).populateAll()
+		return Album.findOne(req.param('id')).populateAll()
       .then(function findCB(album){
-        res.json(album);
+        res.ok(album);
       })
       .catch(function(e) {
-        console.error(e);
         res.serverError('Error');
       });
 	},

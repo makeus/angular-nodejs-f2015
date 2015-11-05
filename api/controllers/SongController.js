@@ -1,6 +1,6 @@
 
 module.exports = {
-  uploadSong: function (req, res) {
+  create: function (req, res) {
     req.file('song').upload({
       maxBytes: 100000000,
       dirname: require('path').resolve(sails.config.appPath, sails.config.files.media)
@@ -27,30 +27,42 @@ module.exports = {
     });
   },
 
+  destroy: function(req, res) {
+    res.badRequest('Not supported');
+  },
+
+  update: function(req, res) {
+    res.badRequest('Not supported');
+  },
+
   find: function(req, res) {
     if(sails.config.environment === 'development') {
       return Song.find(req.allParams())
         .then(function(songs) {
-          res.json(songs);
+          res.ok(songs);
         })
         .catch(function(e) {
-          res.negotiate(e);
+          res.serverError(e);
         });
     }
     res.badRequest('Not supported');
   },
 
   findOne: function (req, res){
-    Song.findOne(req.param('id')).then(function(song) {
+    return Song.findOne(req.param('id')).then(function(song) {
 
       var fileAdapter = require('skipper-disk')();
-
       // Stream the file down
-      fileAdapter.read(song.fd)
-        .on('error', function (err){
-          return res.serverError(err);
-        })
-        .pipe(res);
+      fileAdapter.read(song.fd);
+
+      fileAdapter.on('error', function (err){
+        return res.serverError(err);
       });
+
+      return fileAdapter.pipe(res);
+    })
+    .catch(function(e) {
+      res.serverError(e);
+    });
   }
 }

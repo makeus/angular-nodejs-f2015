@@ -34,9 +34,7 @@ module.exports.routes = {
 
   '/': {
     view: 'homepage'
-  },
-
-  'POST /asd': 'SongController.uploadSong'
+  }
 
   /***************************************************************************
   *                                                                          *
