@@ -30,7 +30,7 @@
   "scripts": {
     "debug": "node debug app.js",
     "start": "node app.js",
-    "test": "mocha test/bootstrap.test.js test/unit/**/*.test.js"
+    "test": "istanbul cover -x \"**/config/**\" _mocha test/bootstrap.test.js test/unit/**/*.test.js  && istanbul report html"
   },
   "main": "app.js",
   "repository": {
@@ -40,6 +40,7 @@
   "author": "mathias",
   "license": "",
   "devDependencies": {
+    "istanbul": "^0.4.0",
     "mocha": "^2.3.3",
     "mockery": "^1.4.0",
     "sails-mock-models": "0.0.6"

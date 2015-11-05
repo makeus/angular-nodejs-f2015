@@ -10,6 +10,7 @@
  */
 
 module.exports.bootstrap = function(cb) {
+  console.log('asd');
   MediaParseService.parseDirectoryMedias(sails.config.files.media);
   cb();
 };
