@@ -23,7 +23,7 @@ module.exports = {
       return Promise.each(uploadedFiles, function(file) {
         return MediaParseService.parseMediaFile(file.fd)
         .then(function(song) {
-          songs.push(_.omit(song, 'fd'));
+          songs.push(song);
         });
       })
       .then(function(){

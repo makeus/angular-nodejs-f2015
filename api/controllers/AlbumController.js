@@ -13,6 +13,7 @@ module.exports = {
         res.ok(albums);
       })
       .catch(function(e) {
+        console.log(e);
         res.serverError('Error');
       });
 	},

@@ -138,6 +138,50 @@ describe('MediaParseService', function() {
         });
     });
 
+    it('should parse mediafile and  create new entries of songs and albums if no previous ones area found even when some of the data is incomplete', () => {
+        var testCoverUrl = '/asd/asd';
+        var testFilePAth = '/asd/asdsa/dsa.fdg';
+        var mock = require('sails-mock-models');
+        mock.mockModel(Album, 'findOneByName', null);
+        mock.mockModel(Album, 'create', testAlbum);
+        mock.mockModel(Album, 'update', testAlbum);
+        mock.mockModel(Song, 'findOne', null);
+        mock.mockModel(Song, 'create', testSong);
+
+        testMetadata.genre = [];
+
+        sinon.stub(MetadataService, 'getMetadataFromFilename', function() {
+          return Promise.resolve(testMetadata);
+        });
+
+        sinon.stub(CoverService, 'uploadCover', function() {
+          return Promise.resolve(testCoverUrl);
+        });
+
+        return MediaParseService.parseMediaFile(testFilePAth).then(function(song) {
+          assert(MetadataService.getMetadataFromFilename.withArgs(testFilePAth).calledOnce);
+          assert(Album.findOneByName.withArgs(testMetadata.album).calledOnce);
+          assert(Album.create.withArgs(sinon.match.has('name', testMetadata.album).calledOnce));
+          assert(CoverService.uploadCover.withArgs(testAlbum.id, testMetadata.picture[0]).calledOnce);
+          assert(Album.update.withArgs(sinon.match.object, sinon.match.has('cover', testCoverUrl)));
+          assert(Song.findOne.calledOnce);
+          assert(Song.create.withArgs(sinon.match({
+            title: sinon.match.string,
+            artist: sinon.match.string,
+            album: testAlbum.id
+          })));
+          assert(song === testSong);
+
+          MetadataService.getMetadataFromFilename.restore();
+          CoverService.uploadCover.restore();
+          Album.findOneByName.restore();
+          Album.create.restore();
+          Album.update.restore();
+          Song.findOne.restore();
+          Song.create.restore();
+        });
+    });
+
     it('should parse mediafile and not create new entries if previous ones area found', () => {
         var testCoverUrl = '/asd/asd';
         var testFilePAth = '/asd/asdsa/dsa.fdg';
@@ -157,11 +201,11 @@ describe('MediaParseService', function() {
         });
 
         return MediaParseService.parseMediaFile(testFilePAth).then(function(song) {
-          assert(MetadataService.getMetadataFromFilename.withArgs(testFilePAth).calledOnce);
-          assert(Album.findOneByName.withArgs(testMetadata.album).calledOnce);
+          assert(!MetadataService.getMetadataFromFilename.called);
+          assert(!Album.findOneByName.called);
           assert(!Album.create.called);
-          assert(CoverService.uploadCover.withArgs(testAlbum.id, testMetadata.picture[0]).calledOnce);
-          assert(Album.update.withArgs(sinon.match.object, sinon.match.has('cover', testCoverUrl)));
+          assert(!CoverService.uploadCover.called);
+          assert(!Album.called);
           assert(Song.findOne.calledOnce);
           assert(!Song.create.called);
           assert(song === testSong);
@@ -176,18 +220,17 @@ describe('MediaParseService', function() {
         });
     });
 
-    it('should parsemedia file and create entries but not update album with cover data if no cover is found from metadata', () => {
+    it('should parsemedia file and create song entires but not update album with cover data if no cover is found from metadata', () => {
         var testCoverUrl = '/asd/asd';
         var testFilePAth = '/asd/asdsa/dsa.fdg';
         var mock = require('sails-mock-models');
-        mock.mockModel(Album, 'findOneByName', null);
-        mock.mockModel(Album, 'create', testAlbum);
-        mock.mockModel(Album, 'update', testAlbum);
+        mock.mockModel(Album, 'findOneByName', testAlbum);
+        mock.mockModel(Album, 'create', null);
+        mock.mockModel(Album, 'update', null);
         mock.mockModel(Song, 'findOne', null);
         mock.mockModel(Song, 'create', testSong);
 
         testMetadata.picture = [];
-        testMetadata.genre = [];
 
         sinon.stub(MetadataService, 'getMetadataFromFilename', function() {
           return Promise.resolve(testMetadata);
@@ -200,7 +243,7 @@ describe('MediaParseService', function() {
         return MediaParseService.parseMediaFile(testFilePAth).then(function(song) {
           assert(MetadataService.getMetadataFromFilename.withArgs(testFilePAth).calledOnce);
           assert(Album.findOneByName.withArgs(testMetadata.album).calledOnce);
-          assert(Album.create.withArgs(sinon.match.has('name', testMetadata.album).calledOnce));
+          assert(!Album.create.called);
           assert(!CoverService.uploadCover.called);
           assert(Album.update.withArgs(sinon.match.object, sinon.match.has('cover', testCoverUrl)));
           assert(Song.findOne.calledOnce);
