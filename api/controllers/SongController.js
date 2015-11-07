@@ -1,29 +1,36 @@
 
 module.exports = {
   create: function (req, res) {
-    req.file('song').upload({
+
+    var Promise = require("bluebird");
+
+    return Promise.promisifyAll(req.file('song')).uploadAsync({
       maxBytes: 100000000,
       dirname: require('path').resolve(sails.config.appPath, sails.config.files.media)
-    }, function (err, uploadedFiles) {
-      if (err) return res.negotiate(err);
+    })
+    .then(function (uploadedFiles) {
       if (uploadedFiles.length === 0){
-        return res.badRequest('No file was uploaded');
+        throw 'No file was uploaded';
       }
       var Promise = require("bluebird");
       var songs = [];
 
-      Promise.each(uploadedFiles, function(file) {
-        return MediaParseService.parseMediaFile(file.fd).then(function(song) {
+      return Promise.each(uploadedFiles, function(file) {
+        return MediaParseService.parseMediaFile(file.fd)
+        .then(function(song) {
           songs.push(_.omit(song, 'fd'));
         });
       })
-      .catch(function(e) {
-        res.negotiate(e);
-      })
-      .finally(function(){
+      .then(function(){
         res.status(201);
         res.ok(songs);
+      })
+      .catch(function(e) {
+        res.serverError(e);
       });
+    })
+    .catch(function(e) {
+      res.badRequest(e);
     });
   },
 

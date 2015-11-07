@@ -6,8 +6,10 @@ before(function(done) {
 
   Sails.lift({
     bootstrap: function(cb) {
-      console.log('hgfh');
       cb();
+    },
+    log: {
+      level: 'error'
     }
   }, function(err, server) {
     sails = server;

@@ -7,6 +7,94 @@ describe('SongController',function() {
     SongController = require(sails.config.appPath + '/api/controllers/SongController');
   });
 
+  describe('#create()', function() {
+    it('should call MediaParseService parseMediaFile for given files from req and call res ok with returned songs', () => {
+      var uploadedFiles = ['1231', '5464/asdasd'];
+      var song = {
+        id: 2,
+        title: 'testtitle',
+        artist: 'testArists'
+      };
+      var req = {
+        file: sinon.stub().returns({
+          upload: function(confing, cb) {
+            cb(null, uploadedFiles);
+          }
+        })
+      };
+
+      var res = {
+        status: sinon.stub(),
+        ok: sinon.stub()
+      };
+
+      var Promise = require("bluebird");
+      var mock = require('sails-mock-models');
+      mock.mockModel(MediaParseService, 'parseMediaFile', Promise.resolve(song));
+
+      return SongController.create(req, res).then(function() {
+        assert(res.status.calledWith(201));
+        assert(res.ok.calledWith(sinon.match(function(ret) {
+          return ret.length === 2;
+        })));
+        MediaParseService.parseMediaFile.restore();
+      });
+    });
+
+    it('should call req badRequest if no filenames are given to the callback', () => {
+      var uploadedFiles = [];
+      var req = {
+        file: sinon.stub().returns({
+          upload: function(confing, cb) {
+            cb(null, uploadedFiles);
+          }
+        })
+      };
+
+      var res = {
+        badRequest: sinon.stub(),
+        status: sinon.stub(),
+        ok: sinon.stub()
+      };
+
+      return SongController.create(req, res).then(function() {
+        assert(!res.status.calledWith(201));
+        assert(res.badRequest.calledOnce);
+      });
+    });
+
+    it('should call res serverError if errors occur during mediaparsing', () => {
+      var uploadedFiles = ['1231', '5464/asdasd'];
+      var req = {
+        file: sinon.stub().returns({
+          upload: function(confing, cb) {
+            cb(null, uploadedFiles);
+          }
+        })
+      };
+
+      var res = {
+        serverError: sinon.stub(),
+        badRequest: sinon.stub(),
+        status: sinon.stub(),
+        ok: sinon.stub()
+      };
+
+      var Promise = require("bluebird");
+      var mock = require('sails-mock-models');
+
+      sinon.stub(MediaParseService, 'parseMediaFile', function() {
+        return Promise.reject(new Error("oops"));
+      });
+
+      return SongController.create(req, res).then(function() {
+        assert(!res.status.calledWith(201));
+        assert(res.serverError.calledOnce);
+        MediaParseService.parseMediaFile.restore();
+      });
+    });
+  });
+
   describe('#update()', function() {
     it('should call badRequest', () => {
       var req = {};
@@ -105,31 +193,6 @@ describe('SongController',function() {
     var mockery = require('mockery');
     var mock = require('sails-mock-models');
 
-    beforeEach(() => {
-      var fileAdapterStub = new function() {
-        var $this = this;
-        this.read = function() {
-        };
-        this.on = function(param1, param2) {
-          assert(param1 === 'error');
-          param2(new Error('erro'));
-          assert(res.serverError.calledOnce);
-          return $this;
-        };
-        this.pipe = function(givenRes) {
-          assert(res === givenRes);
-        };
-      }();
-
-      fileAdapterMock = sinon.mock(fileAdapterStub);
-      var skipperMock = sinon.stub().returns(fileAdapterStub);
-
-      mockery.enable({
-        warnOnReplace: false
-      });
-      mockery.registerMock('skipper-disk', skipperMock);
-    });
-
     afterEach(() => {
       mockery.deregisterMock(fileAdapterMock);
       mockery.disable();
@@ -150,8 +213,27 @@ describe('SongController',function() {
         fd: fd
       };
 
+      var fileAdapterStub = new function() {
+        var $this = this;
+        this.read = function() {
+        };
+        this.on = function(param1, param2) {
+          assert(param1 === 'error');
+          param2(new Error('erro'));
+          assert(res.serverError.calledOnce);
+        };
+        this.pipe = function(givenRes) {
+          assert(res === givenRes);
+        };
+      }();
+
+      fileAdapterMock = sinon.mock(fileAdapterStub);
+      var skipperMock = sinon.stub().returns(fileAdapterStub);
+
+      mockery.enable();
+      mockery.registerMock('skipper-disk', skipperMock);
+
       fileAdapterMock.expects('read').once().withArgs(fd);
-      fileAdapterMock.expects('on').once();
       fileAdapterMock.expects('pipe').once().withArgs(res);
 
       mock.mockModel(Song, 'findOne', mockSong);
