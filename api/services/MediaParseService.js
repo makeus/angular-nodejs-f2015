@@ -12,12 +12,11 @@ module.exports = {
   },
   parseMediaFile: function(filepath) {
     var Promise = require("bluebird");
-    var fs = Promise.promisifyAll(require("fs"));
 
     return MetadataService.getMetadataFromFilename(filepath).then(function(metadata) {
         return Album.findOneByName(metadata.album)
         .then(function(album) {
-          if(!album || !album.id) {
+          if(!album) {
             return Album.create({
                 name: metadata.album,
                 year: metadata.year,
