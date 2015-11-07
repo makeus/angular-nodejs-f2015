@@ -63,6 +63,28 @@ describe('SongController',function() {
       });
     });
 
+    it('should call req badRequest if no files are found from req ', () => {
+      var uploadedFiles = [];
+      var req = {
+        file: sinon.stub().returns(null)
+      };
+
+      var res = {
+        badRequest: sinon.stub(),
+        status: sinon.stub(),
+        ok: sinon.stub()
+      };
+
+      return SongController.create(req, res)
+      .catch(function() {
+        return require("bluebird").resolve();
+      })
+      .finally(function() {
+        assert(!res.status.calledWith(201));
+        assert(res.badRequest.calledOnce);
+      });
+    });
+
     it('should call res serverError if errors occur during mediaparsing', () => {
       var uploadedFiles = ['1231', '5464/asdasd'];
       var req = {
@@ -132,7 +154,7 @@ describe('SongController',function() {
       assert(res.badRequest.calledOnce);
     });
 
-    it('should call Song find on development environment with given parameters', (done) => {
+    it('should call Song find on development environment with given parameters', () => {
       var paramData = {
         limit: 10
       };
@@ -152,15 +174,14 @@ describe('SongController',function() {
       var mock = require('sails-mock-models');
       mock.mockModel(Song, 'find', mockSong);
 
-      SongController.find(req, res).then(function() {
+      return SongController.find(req, res).then(function() {
         assert(res.ok.calledWith(mockSong));
         assert(req.allParams.calledOnce);
         Song.find.restore();
-        done();
       });
     });
 
-    it('should call res serverError on development environment on error', (done) => {
+    it('should call res serverError on development environment on error', () => {
       var paramData = {
         limit: 10
       };
@@ -178,12 +199,11 @@ describe('SongController',function() {
       var mock = require('sails-mock-models');
       mock.mockModel(Song, 'find', null, new Error('error'));
 
-      SongController.find(req, res).then(function() {
+      return SongController.find(req, res).then(function() {
         assert(res.serverError.calledOnce);
         assert(!res.ok.called);
         assert(req.allParams.calledOnce);
         Song.find.restore();
-        done();
       });
     });
   });
@@ -199,7 +219,7 @@ describe('SongController',function() {
       fileAdapterMock.restore();
     });
 
-    it('should call Song findOne with id parameter and retrieve file and stream it down ', (done) => {
+    it('should call Song findOne with id parameter and retrieve file and stream it down ', () => {
       var id = 1231;
       var fd = '/test/file.test';
       var req = {
@@ -238,14 +258,13 @@ describe('SongController',function() {
 
       mock.mockModel(Song, 'findOne', mockSong);
 
-      SongController.findOne(req, res).then(function() {
+      return SongController.findOne(req, res).then(function() {
         fileAdapterMock.verify();
         Song.findOne.restore();
-        done();
       });
     });
 
-    it('should call res serverError on error', (done) => {
+    it('should call res serverError on error', () => {
       var id = 15;
       var req = {
         param: sinon.stub().returns(id)
@@ -258,12 +277,32 @@ describe('SongController',function() {
 
       mock.mockModel(Song, 'findOne', null, new Error('error'));
 
-      SongController.findOne(req, res).then(function() {
+      return SongController.findOne(req, res).then(function() {
         assert(res.serverError.calledOnce);
         assert(!res.ok.called);
         assert(req.param.calledWith('id'));
         Song.findOne.restore();
-        done();
+      });
+    });
+
+
+    it('should call res ok with empty object if not found', () => {
+      var id = 15;
+      var req = {
+        param: sinon.stub().returns(id)
+      };
+
+      var res = {
+        serverError: sinon.stub(),
+        ok: sinon.stub()
+      };
+
+      mock.mockModel(Song, 'findOne', null);
+
+      return SongController.findOne(req, res).then(function() {
+        assert(res.ok.calledOnce);
+        assert(req.param.calledWith('id'));
+        Song.findOne.restore();
       });
     });
   });

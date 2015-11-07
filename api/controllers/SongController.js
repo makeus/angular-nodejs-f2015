@@ -4,6 +4,11 @@ module.exports = {
 
     var Promise = require("bluebird");
 
+    if(!req.file('song')) {
+      res.badRequest('Song required!');
+      return Promise.reject('Song required');
+    }
+
     return Promise.promisifyAll(req.file('song')).uploadAsync({
       maxBytes: 100000000,
       dirname: require('path').resolve(sails.config.appPath, sails.config.files.media)
@@ -57,7 +62,9 @@ module.exports = {
 
   findOne: function (req, res){
     return Song.findOne(req.param('id')).then(function(song) {
-
+      if(!song) {
+        return res.ok({});
+      }
       var fileAdapter = require('skipper-disk')();
       // Stream the file down
       fileAdapter.read(song.fd);
