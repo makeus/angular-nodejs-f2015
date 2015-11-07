@@ -5,6 +5,8 @@ module.exports = {
         var Promise = require("bluebird");
         var mm = Promise.promisify(require('musicmetadata'));
 
-        return mm(fs.createReadStream(filename));
+        return Promise.try(function() {
+          return mm(fs.createReadStream(filename))
+        });
     }
 };
