@@ -1,0 +1,11 @@
+div.content
+    div.container
+      div(album-list).row
+        div(
+          ng-repeat="album in albums",
+          album="$index"
+        ).col-xs-6.album
+          div(style="background-image: url({{album.cover}})").cover
+          div.text-center
+            h1 {{album.name}}
+            h2.text-muted {{album.year | date:'yyyy'}}

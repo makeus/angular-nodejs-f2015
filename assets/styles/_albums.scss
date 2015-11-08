@@ -1,0 +1,32 @@
+.album {
+
+  $album-gutter: 0.2rem;
+
+  .cover {
+
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+
+      &:after {
+        content: "";
+        display: block;
+        padding-bottom: 100%;
+      }
+  }
+
+  &[class*="-6"] {
+    margin: 0 $album-gutter;
+    width: calc(50% - 2 * #{$album-gutter});
+    padding: 0;
+  }
+
+  h1 {
+    font-size: 1rem;
+  }
+
+  h2 {
+    font-size: 0.9rem;
+  }
+
+}

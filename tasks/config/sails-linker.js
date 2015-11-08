@@ -143,7 +143,8 @@ module.exports = function(grunt) {
 			files: {
 				'.tmp/public/index.html': ['.tmp/public/jst.js'],
 				'views/**/*.html': ['.tmp/public/jst.js'],
-				'views/**/*.ejs': ['.tmp/public/jst.js']
+				'views/**/*.ejs': ['.tmp/public/jst.js'],
+        'views/**/*.jade': ['.tmp/public/jst.jade']
 			}
 		},
 

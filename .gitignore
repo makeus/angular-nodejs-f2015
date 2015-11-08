@@ -68,7 +68,7 @@ config/local.js
 
 node_modules
 bower_components
-
+assets/dependencies
 
 
 
@@ -120,3 +120,4 @@ nbproject
 media/*
 assets/images/covers/*
 coverage/*
+.sass-cache
