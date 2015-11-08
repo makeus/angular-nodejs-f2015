@@ -28,6 +28,22 @@
             MusicPlayer.setSong(Playlist.getCurrentSong());
             MusicPlayer.play();
           };
+          $scope.previous = function() {
+            var previous = Playlist.getPrevious();
+            if(previous) {
+              Playlist.setCurrentSong(previous);
+              MusicPlayer.setSong(previous);
+              MusicPlayer.play();
+            }
+          };
+          $scope.next = function() {
+            var next = Playlist.getNext();
+            if(next) {
+              Playlist.setCurrentSong(next);
+              MusicPlayer.setSong(next);
+              MusicPlayer.play();
+            }
+          };
         }
       };
     }]);

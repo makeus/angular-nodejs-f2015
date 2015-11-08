@@ -1,5 +1,13 @@
 div.content
     div.container
+
+      ul.nav.nav-tabs
+        li.nav-item
+          a(href="#").nav-link.active
+        li.nav-item
+          a(href="#").nav-link
+        li.nav-item
+
       album-list.albums
         div(ng-if="!albumOpen").row
           div(ng-repeat="album in albums", ng-click="openAlbum(album.id)").col-xs-6.list-album
@@ -21,20 +29,24 @@ div.content
               span.track-info.col-xs-10
                 span.text-muted {{::song.artist}}
                 span.title {{::song.title}} &nbsp;
+                seek-bar(ng-if="playing")
+                  progress(value="{{currentTime}}", max="{{total}}").progress {{currentTime}}
+                  div.row
+                    small.col-xs-6.text-left{{currentTime | secondToTime | date:'m:ss'}}
+                    small.col-xs-6.text-right{{total | secondToTime | date:'m:ss'}}
 
               span.col-xs-2.right.text-right
-                span.track-number {{::song.trackNumber}}
-
+                span(ng-class="{align: playing}").track-number {{::song.trackNumber}}
       controls.text-center
         div.row
           span.col-xs-2
           span.col-xs-8.main-controls
-            span.col-xs-4
+            span(ng-click="previous()").col-xs-4
               i.fa.fa-backward
             span(ng-click="!playing ? play() : stop()").col-xs-4
               i(ng-if="!playing").fa.fa-play
               i(ng-if="playing").fa.fa-pause
-            span.col-xs-4
+            span(ng-click="next()").col-xs-4
               i.fa.fa-forward
           span.col-xs-2
 

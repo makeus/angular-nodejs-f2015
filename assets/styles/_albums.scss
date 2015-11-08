@@ -30,6 +30,7 @@
     .cover {
       padding: 0;
       margin: 0 ($grid-gutter-width / 2);
+      max-width: 10rem;
 
       &[class*="-4"] {
         width: calc((100%/3) - #{$grid-gutter-width});
@@ -61,40 +62,9 @@
       }
     }
 
-
     .songs {
       margin-top: $grid-gutter-width / 2;
       margin-bottom: $grid-gutter-width / 2;
-    }
-
-    song {
-      color: $color-light;
-
-      span {
-        display: inline-block;
-      }
-
-      .track-info {
-        margin-bottom: 0.6rem;
-        span {
-          white-space: nowrap;
-          text-overflow: ellipsis;
-          overflow: hidden;
-          display: block;
-          line-height: 1;
-        }
-
-        span + span {
-          line-height: 1.5;
-          font-size: 1.1rem;
-        }
-      }
-
-      .track-number {
-        background: $color-darkest;
-        color: $color-normal;
-        padding: 0.5rem;
-      }
     }
   }
 

@@ -31,6 +31,7 @@
           song = _song;
           return;
         }
+        this.stop();
         audio.src = '/api/songs/' + _song;
         song = _song;
       };
@@ -38,6 +39,18 @@
       this.onPlayChage = function(cb) {
         playChangeCallbacks.push(cb);
       };
+
+      this.getTotalDuration = function() {
+        if(audio) {
+          return audio.duration;
+        }
+      };
+
+      this.getCurrentPlaytime = function() {
+        if(audio) {
+          return audio.currentTime;
+        }
+      }
 
     }]);
 }());

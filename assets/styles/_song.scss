@@ -1,0 +1,57 @@
+song.row {
+
+  span {
+    display: inline-block;
+  }
+
+  .track-info {
+    span {
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      display: block;
+      line-height: 1;
+    }
+
+    span + span {
+      line-height: 1.5;
+      font-size: 1.1rem;
+    }
+  }
+
+  .track-number {
+    background: $color-darkest;
+    color: $color-normal;
+    padding: 0.58rem;
+
+    &.align {
+      margin-top: 1rem;
+    }
+  }
+
+  color: $color-light;
+  display: block;
+  margin: 0;
+  margin-bottom: 0.6rem;
+
+  &.playing {
+    background-color: lighten($color-black, 2);
+  }
+
+  .progress {
+    height: 0.1rem;
+    margin-top: 0.4rem;
+    margin-bottom: 0.2rem;
+  }
+
+  .progress[value]::-webkit-progress-bar {
+    background-color: $color-black;
+  }
+  .progress[value]::-webkit-progress-value {
+    background-color: $color-normal;
+  }
+
+  small {
+    color: $color-dark;
+  }
+}
