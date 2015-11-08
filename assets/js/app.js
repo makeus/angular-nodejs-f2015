@@ -3,7 +3,9 @@
 
     angular.module('musicPlayer', [
       'musicPlayer:remote',
-      'musicPlayer:albumList'
+      'musicPlayer:albumList',
+      'musicPlayer:player',
+      'musicPlayer:control'
       ]);
 
 }());

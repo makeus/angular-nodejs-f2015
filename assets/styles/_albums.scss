@@ -1,32 +1,114 @@
-.album {
+.albums {
 
-  $album-gutter: 0.2rem;
+  .list-album{
+    $album-gutter: 0.2rem;
 
-  .cover {
+    transition: width ease-in 0.5s;
 
-      background-size: cover;
-      background-repeat: no-repeat;
-      background-position: center;
+    &[class*="-6"] {
+      margin: 0 $album-gutter;
+      width: calc(50% - 2 * #{$album-gutter});
+      padding: 0;
+    }
 
-      &:after {
-        content: "";
-        display: block;
-        padding-bottom: 100%;
+    h1 {
+      font-size: 1rem;
+      color: $color-dark;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+    }
+
+    h2 {
+      font-size: 0.9rem;
+      color: $color-darkest;
+    }
+  }
+
+  .album {
+
+    .cover {
+      padding: 0;
+      margin: 0 ($grid-gutter-width / 2);
+
+      &[class*="-4"] {
+        width: calc((100%/3) - #{$grid-gutter-width});
       }
+      &[class*="-5"] {
+        width: calc((100% * (5/12)) - #{$grid-gutter-width});
+      }
+    }
+
+    .album-info {
+
+      p, h1 {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+      }
+
+      h1 {
+        color: $color-light;
+        font-size: 1.5rem;
+      }
+      p {
+        color: $color-dark;
+        font-size: 1rem;
+        margin: 0;
+      }
+      @include media-breakpoint-up(sm) {
+        padding: $grid-gutter-width / 2 0;
+      }
+    }
+
+
+    .songs {
+      margin-top: $grid-gutter-width / 2;
+      margin-bottom: $grid-gutter-width / 2;
+    }
+
+    song {
+      color: $color-light;
+
+      span {
+        display: inline-block;
+      }
+
+      .track-info {
+        margin-bottom: 0.6rem;
+        span {
+          white-space: nowrap;
+          text-overflow: ellipsis;
+          overflow: hidden;
+          display: block;
+          line-height: 1;
+        }
+
+        span + span {
+          line-height: 1.5;
+          font-size: 1.1rem;
+        }
+      }
+
+      .track-number {
+        background: $color-darkest;
+        color: $color-normal;
+        padding: 0.5rem;
+      }
+    }
   }
 
-  &[class*="-6"] {
-    margin: 0 $album-gutter;
-    width: calc(50% - 2 * #{$album-gutter});
-    padding: 0;
-  }
+   .cover {
+        background-size: cover;
+        background-repeat: no-repeat;
+        background-position: center;
 
-  h1 {
-    font-size: 1rem;
-  }
+        margin-bottom: 0.3rem;
 
-  h2 {
-    font-size: 0.9rem;
-  }
-
+        &:after {
+          content: "";
+          display: block;
+          padding-bottom: 100%;
+        }
+    }
 }

@@ -30,5 +30,8 @@
 // etc.
 
 @import '../dependencies/bootstrap/scss/bootstrap.scss';
+@import '../dependencies/components-font-awesome/scss/font-awesome.scss';
+@import 'colors';
 @import 'general';
 @import 'albums';
+@import 'controls';
