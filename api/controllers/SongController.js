@@ -6,7 +6,7 @@ module.exports = {
 
     if(!req.file('song')) {
       res.badRequest('Song required!');
-      return Promise.reject('Song required');
+      return Promise.reject(new Error('Song required'));
     }
 
     return Promise.promisifyAll(req.file('song')).uploadAsync({
@@ -15,7 +15,7 @@ module.exports = {
     })
     .then(function (uploadedFiles) {
       if (uploadedFiles.length === 0){
-        throw 'No file was uploaded';
+        throw new Error('No file was uploaded');
       }
       var Promise = require("bluebird");
       var songs = [];
@@ -65,15 +65,13 @@ module.exports = {
       if(!song) {
         return res.ok({});
       }
-      var fileAdapter = require('skipper-disk')();
-      // Stream the file down
-      fileAdapter.read(song.fd);
 
-      fileAdapter.on('error', function (err){
+      var reader = require('skipper-disk')().read(song.fd);
+
+      reader.on('error', function (err){
         return res.serverError(err);
       });
-
-      return fileAdapter.pipe(res);
+      reader.pipe(res);
     })
     .catch(function(e) {
       res.serverError(e);

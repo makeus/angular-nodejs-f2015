@@ -213,12 +213,6 @@ describe('SongController',function() {
     var mockery = require('mockery');
     var mock = require('sails-mock-models');
 
-    afterEach(() => {
-      mockery.deregisterMock(fileAdapterMock);
-      mockery.disable();
-      fileAdapterMock.restore();
-    });
-
     it('should call Song findOne with id parameter and retrieve file and stream it down ', () => {
       var id = 1231;
       var fd = '/test/file.test';
@@ -233,34 +227,70 @@ describe('SongController',function() {
         fd: fd
       };
 
-      var fileAdapterStub = new function() {
-        var $this = this;
-        this.read = function() {
-        };
-        this.on = function(param1, param2) {
-          assert(param1 === 'error');
-          param2(new Error('erro'));
-          assert(res.serverError.calledOnce);
-        };
-        this.pipe = function(givenRes) {
-          assert(res === givenRes);
-        };
-      }();
+      var fileReaderStub = {
+        pipe: sinon.stub(),
+        on: sinon.stub()
+      };
 
-      fileAdapterMock = sinon.mock(fileAdapterStub);
+      var fileAdapterStub = {
+        read: sinon.stub().returns(fileReaderStub)
+      };
+
       var skipperMock = sinon.stub().returns(fileAdapterStub);
 
       mockery.enable();
       mockery.registerMock('skipper-disk', skipperMock);
 
-      fileAdapterMock.expects('read').once().withArgs(fd);
-      fileAdapterMock.expects('pipe').once().withArgs(res);
-
       mock.mockModel(Song, 'findOne', mockSong);
 
       return SongController.findOne(req, res).then(function() {
-        fileAdapterMock.verify();
         Song.findOne.restore();
+        mockery.deregisterMock('skipper-disk');
+        mockery.disable();
+
+        assert(fileAdapterStub.read.withArgs(fd).calledOnce);
+        assert(fileReaderStub.pipe.withArgs(res).calledOnce);
+      });
+    });
+
+    it('should on read error call res serverError', () => {
+     var id = 1231;
+      var fd = '/test/file.test';
+      var req = {
+        param: sinon.stub().returns(id)
+      };
+      var res = {
+        serverError: sinon.stub()
+      };
+
+      var mockSong = {
+        fd: fd
+      };
+
+      var fileReaderStub = {
+        pipe: sinon.stub(),
+        on: sinon.stub().yields(new Error())
+      };
+
+      var fileAdapterStub = {
+        read: sinon.stub().returns(fileReaderStub)
+      };
+
+      var skipperMock = sinon.stub().returns(fileAdapterStub);
+
+      mockery.enable();
+      mockery.registerMock('skipper-disk', skipperMock);
+
+      mock.mockModel(Song, 'findOne', mockSong);
+
+      var promise = SongController.findOne(req, res).then(function() {
+        Song.findOne.restore();
+        mockery.deregisterMock('skipper-disk');
+        mockery.disable();
+
+        assert(fileAdapterStub.read.withArgs(fd).calledOnce);
+        assert(fileReaderStub.on.withArgs('error', sinon.match.func).calledOnce);
+        assert(res.serverError.calledOnce);
       });
     });
 
