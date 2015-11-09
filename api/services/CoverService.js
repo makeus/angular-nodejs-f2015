@@ -9,7 +9,7 @@ module.exports = {
         return Promise.reject(new Error('Unsupported image format'));
       }
       var url = sails.config.files.covers + albumId + '.' + picture.format;
-      return fs.writeFileAsync(sails.config.appPath + '/assets' + url, picture.data).then((url) => {
+      return fs.writeFileAsync(sails.config.appPath + '/assets' + url, picture.data).then(() => {
         return fs.writeFileAsync(sails.config.appPath + '/.tmp/public/' + url).catch(() => {
           return Promise.resolve(url);
         });

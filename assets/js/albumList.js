@@ -12,7 +12,6 @@
             $this.closeAlbum();
           });
 
-
           this.setAlbumOpen = function(albumId) {
             $scope.albumOpen = albumId;
             $this.albumOpen = albumId;

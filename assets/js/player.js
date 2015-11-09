@@ -4,17 +4,22 @@
     angular.module('musicPlayer:player', [])
 
     .service('MusicPlayer', ['$q', function($q){
-      var audio, song;
+      var audio, song, status;
       var playChangeCallbacks = [];
 
       this.STATUS_PLAYING = 'playing';
       this.STATUS_STOPPED = 'stopped';
+
+      this.getStatus = function() {
+        return status;
+      };
 
       var $this = this;
       this.play = function() {
         _.forEach(playChangeCallbacks, function(cb) {
           cb($this.STATUS_PLAYING, song)
         });
+        status = $this.STATUS_PLAYING;
         audio.play();
       };
 
@@ -22,6 +27,7 @@
         _.forEach(playChangeCallbacks, function(cb) {
           cb($this.STATUS_STOPPED, song)
         });
+        status = $this.STATUS_STOPPED;
         audio.pause();
       };
 
@@ -50,7 +56,11 @@
         if(audio) {
           return audio.currentTime;
         }
-      }
+      };
+
+      this.getCurrentSong = function() {
+        return song;
+      };
 
     }]);
 }());

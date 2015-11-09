@@ -19,8 +19,7 @@
           });
 
           $scope.playing = false;
-
-          MusicPlayer.onPlayChage(function(status, song) {
+          var setPlayerStatus = function(status, song) {
             switch(status) {
               case MusicPlayer.STATUS_PLAYING: {
                 if(song === id) {
@@ -37,7 +36,10 @@
                 break;
               }
             }
-          });
+          };
+
+          setPlayerStatus(MusicPlayer.getStatus(), MusicPlayer.getCurrentSong());
+          MusicPlayer.onPlayChage(setPlayerStatus);
         }
       };
     }])
