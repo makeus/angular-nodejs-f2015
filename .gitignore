@@ -117,7 +117,10 @@ nbproject
 .idea
 .node_history
 
+!media/.gitkeep
 media/*
+
 assets/images/covers/*
+!assets/images/covers/.gitkeep
 coverage/*
 .sass-cache

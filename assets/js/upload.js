@@ -7,7 +7,7 @@
         scope: true,
         template: function() {
           return [
-              '<div class="row" ng-if="!complete">',
+              '<div class="row" ng-if="!complete && !failure">',
               '<small class="col-xs-8 text-left">{{name}}</small>',
               '<small class="col-xs-4 text-right">{{size}}</small>',
               '<progress value="{{loaded}}", max="{{total}}" class="progress col-xs-12 progress-striped">{{loaded}}</progress>',
@@ -15,6 +15,10 @@
               '<div class="row" ng-if="complete">',
               '<span class="col-xs-10 text-left"><i class="fa fa-download"></i> {{name}} <small>{{size}}</small></span>',
               '<span class="col-xs-2 text-right dowloaded"><i class="fa fa-check-circle"></i></span>',
+              '</div>',
+              '<div class="row" ng-if="failure">',
+              '<span class="col-xs-10 text-left"><i class="fa fa-download"></i> {{name}} <small>{{size}}</small></span>',
+              '<span class="col-xs-2 text-right error"><span>Error! Try again.</span><i class="fa fa-exclamation-triangle"></i></span>',
               '</div>',
             ].join('');
         },
