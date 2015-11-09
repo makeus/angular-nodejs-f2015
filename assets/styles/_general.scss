@@ -1,5 +1,8 @@
 body {
-  background-color: darken($color-black, 2);
+  @include media-breakpoint-up(md) {
+    background-color: darken($color-black, 2);
+  }
+  background-color: $color-black;
 }
 
 .container {

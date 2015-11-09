@@ -1,3 +1,5 @@
+var songFormats = ['.mp3', '.ogg', '.flac'];
+
 module.exports = {
 
   parseDirectoryMedias: function(dir) {
@@ -6,7 +8,9 @@ module.exports = {
 
     return fs.readdirAsync(dir).then(function(files){
       return Promise.each(files, (file) => {
-        return MediaParseService.parseMediaFile(require('path').resolve(dir, file));
+        if(_.contains(songFormats, file.split('.').pop())) {
+          return MediaParseService.parseMediaFile(require('path').resolve(dir, file));
+        }
       });
     });
   },
