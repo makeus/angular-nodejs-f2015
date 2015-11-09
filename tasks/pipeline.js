@@ -29,7 +29,8 @@ var jsFilesToInject = [
   'dependencies/jquery/dist/jquery.js',
   'dependencies/angular/angular.js',
   'dependencies/angular-resource/angular-resource.js',
-  'dependencies/**/!(jquery|angular).min.js',
+  'dependencies/ng-file-upload/ng-file-upload.js',
+  'dependencies/!(jquery|angular|ng-file-upload)/*.min.js',
   'js/app.js',
 
   // All of the rest of your client-side js files

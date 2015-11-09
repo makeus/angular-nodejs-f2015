@@ -1,7 +1,11 @@
 body {
-  background-color: $color-black;
+  background-color: darken($color-black, 2);
 }
 
 .content {
   margin-bottom: 6rem;
+}
+
+.container {
+  background-color: $color-black
 }

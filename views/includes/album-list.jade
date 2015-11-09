@@ -1,7 +1,7 @@
 album-list(ng-if="!view || view === 'album'").albums
   div(ng-if="!albumOpen").row
     div(ng-repeat="album in albums", ng-click="openAlbum(album.id)").col-xs-6.col-sm-4.col-md-3.list-album
-      div(style="background-image: url({{::album.cover}})").cover
+      div(style="background-image: url({{::album.cover}}), url(/images/placeholder.png)").cover
       div.text-center
         h1 {{::album.name}}
         h2 {{::album.year | date:'yyyy'}}

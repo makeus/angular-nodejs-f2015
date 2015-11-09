@@ -1,0 +1,11 @@
+upload(ng-if="view === 'upload'")
+  div
+    div(ngf-select="uploadFiles($files)" multiple="multiple").btn.upload.col-xs-12 Upload Files
+    p.text-center.col-xs-12.or-text or
+    div(
+      ngf-drop="uploadFiles($files)",
+      ngf-drag-over-class="'dragover'"
+      ngf-multiple="true",
+      ngf-pattern="'audio/*'",
+    ).drop-box.col-xs-12
+      h1 Drag media here

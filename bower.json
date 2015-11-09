@@ -21,6 +21,7 @@
     "jquery": "~2.1.4",
     "angular-resource": "~1.4.7",
     "lodash": "~3.10.1",
-    "components-font-awesome": "~4.4.0"
+    "components-font-awesome": "~4.4.0",
+    "ng-file-upload": "~9.1.2"
   }
 }

@@ -1,0 +1,68 @@
+.drop-box {
+    width: 100%;
+    background-color: lighten($color-black, 2);
+    border: 1rem dotted $color-darkest;
+    position: relative;
+
+    h1 {
+      position: absolute;
+      color: $color-darkest;
+      height: 2rem;
+      font-size: 2rem;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      margin: auto;
+      text-align: center;
+    }
+
+    &:after {
+      content: "";
+      display: block;
+      padding-bottom: 50%;
+    }
+
+    &.dragover {
+      border: 1rem dotted $color-light;
+
+      h1 {
+        color: $color-light;
+      }
+    }
+}
+
+.upload.btn {
+  @include button-variant($color-light, $color-dark, $color-darkest);
+}
+
+.or-text {
+  color: $color-dark;
+  margin-top: 1rem;
+}
+
+upload-bar {
+  color: $color-normal;
+  .dowloaded {
+    font-size: 1.5rem
+  }
+  .row {
+    background-color: lighten($color-black, 2);
+    padding-top: 0.4rem;
+    margin-bottom: 1rem;
+  }
+  small {
+    color: $color-dark;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: block;
+  }
+
+  .progress[value]::-webkit-progress-bar {
+    background-color: $color-black;
+  }
+  .progress[value]::-webkit-progress-value {
+    background-color: $color-normal;
+  }
+}
