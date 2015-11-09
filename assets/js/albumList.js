@@ -7,11 +7,11 @@
       return {
         controller: ['$scope', 'AlbumsRemote', 'Navigation', function($scope, AlbumsRemote, Navigation) {
 
+          var $this = this;
           Navigation.onViewChange(function() {
-            this.closeAlbum();
+            $this.closeAlbum();
           });
 
-          var $this = this;
 
           this.setAlbumOpen = function(albumId) {
             $scope.albumOpen = albumId;
