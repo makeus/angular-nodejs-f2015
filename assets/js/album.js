@@ -41,4 +41,4 @@
         this.current = _.indexOf(this.songs, id);
       };
     }]);
-}())
+}());

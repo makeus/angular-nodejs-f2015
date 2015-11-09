@@ -7,25 +7,27 @@
       return {
         controller: ['$scope', 'AlbumsRemote', 'Navigation', function($scope, AlbumsRemote, Navigation) {
 
-          Navigation.onViewChange(() => {
+          Navigation.onViewChange(function() {
             this.closeAlbum();
           });
 
-          this.setAlbumOpen = (albumId) => {
+          var $this = this;
+
+          this.setAlbumOpen = function(albumId) {
             $scope.albumOpen = albumId;
-            this.albumOpen = albumId;
+            $this.albumOpen = albumId;
           };
 
-          this.closeAlbum = () => {
+          this.closeAlbum = function() {
             $scope.albumOpen = false;
           };
 
-          this.albums = AlbumsRemote.query().$promise.then((data) => {
+          this.albums = AlbumsRemote.query().$promise.then(function(data) {
             return data;
           });
 
-          this.getAlbum = (id) => {
-            return AlbumsRemote.get({id: id}).$promise.then((data)=> {
+          this.getAlbum = function(id) {
+            return AlbumsRemote.get({id: id}).$promise.then(function(data) {
               return data;
             });
           };
@@ -38,4 +40,4 @@
         }
       };
     }]);
-}())
+}());

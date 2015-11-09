@@ -12,14 +12,14 @@
 
       var $this = this;
       this.play = function() {
-        _.forEach(playChangeCallbacks, (cb) => {
+        _.forEach(playChangeCallbacks, function(cb) {
           cb($this.STATUS_PLAYING, song)
         });
         audio.play();
       };
 
       this.stop = function() {
-        _.forEach(playChangeCallbacks, (cb) => {
+        _.forEach(playChangeCallbacks, function(cb) {
           cb($this.STATUS_STOPPED, song)
         });
         audio.pause();
