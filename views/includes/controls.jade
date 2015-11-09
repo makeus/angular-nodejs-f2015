@@ -6,7 +6,7 @@ controls.text-center
         i.fa.fa-backward
       span(ng-click="!playing ? play() : stop()", ng-class="{playing: playing}").col-xs-6.play-button
         i(ng-if="!playing").fa.fa-play
-        i(ng-if="playing").fa.fa-pause
+        i(ng-if="playing", ng-cloak).fa.fa-pause
       span(ng-click="next()").col-xs-3
         i.fa.fa-forward
     span.col-md-4.hidden-xs-down
