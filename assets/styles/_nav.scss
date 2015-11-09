@@ -5,7 +5,9 @@
 
   & > div > span {
     display: block;
+    cursor: pointer;
     width: calc(100% + #{$grid-gutter-width} / 4);
+    margin-bottom: 0.3rem;
   }
 
   .active {

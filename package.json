@@ -42,7 +42,7 @@
   "author": "mathias",
   "license": "",
   "devDependencies": {
-    "grunt-contrib-sass": "^0.9.2",
+    "grunt-sass": "^1.1.0",
     "istanbul": "^0.4.0",
     "mocha": "^2.3.3",
     "mockery": "^1.4.0",

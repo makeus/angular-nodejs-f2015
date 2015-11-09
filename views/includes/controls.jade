@@ -1,12 +1,12 @@
 controls.text-center
   div.row
-    span.col-xs-2
-    span.col-xs-8.main-controls
+    span.col-xs-2.col-md-4
+    span.col-xs-8.col-md-4.main-controls
       span(ng-click="previous()").col-xs-4
         i.fa.fa-backward
-      span(ng-click="!playing ? play() : stop()").col-xs-4
+      span(ng-click="!playing ? play() : stop()", ng-class="{playing: playing}").col-xs-4.play-button
         i(ng-if="!playing").fa.fa-play
         i(ng-if="playing").fa.fa-pause
       span(ng-click="next()").col-xs-4
         i.fa.fa-forward
-    span.col-xs-2
+    span.col-xs-2.col-md-4

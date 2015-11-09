@@ -4,6 +4,8 @@
     $album-gutter: $grid-gutter-width / 2;
 
     transition: width ease-in 0.5s;
+    cursor: pointer;
+    margin-bottom: $grid-gutter-width / 2;
 
     @include media-breakpoint-down(xs) {
       & {
@@ -31,6 +33,19 @@
 
     .cover {
       border: 1px solid lighten($color-black, 3);
+    }
+
+    &:hover {
+      .cover + div {
+        background-color: lighten($color-black, 1);
+      }
+    }
+
+    .cover + div {
+      transition: background-color 0.2s ease-in;
+      margin-top: -1px;
+      padding-top: 0.3rem;
+      padding-bottom: 0.1rem;
     }
   }
 
@@ -84,8 +99,6 @@
         background-size: cover;
         background-repeat: no-repeat;
         background-position: center;
-
-        margin-bottom: 0.3rem;
 
         &:after {
           content: "";

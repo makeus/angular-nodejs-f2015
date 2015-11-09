@@ -1,0 +1,43 @@
+.play-button {
+    cursor: auto;
+    position: relative;
+    max-height: 3rem;
+
+    .fa {
+      position: relative;
+      padding: 0.8rem 0.8rem 0.8rem 1.2rem;
+      box-shadow: 0 0 10px $color-light;
+      top: -2rem;
+      background: $color-black;
+      border-radius: 40px;
+    }
+
+    .fa-play {
+      padding: 1.2rem 1.2rem 1.2rem 1.6rem;
+    }
+
+    .fa-pause {
+      padding: 1.2rem 1.4rem 1.2rem 1.4rem;
+    }
+
+    &.playing {
+      .fa {
+        -webkit-animation: pulsate 0.5s infinite alternate;
+        -moz-animation: pulsate 0.5s infinite alternate;
+        -animation: pulsate 0.5s infinite alternate;
+        text-shadow: 0 0 8px #ccc;
+      }
+    }
+}
+@-webkit-keyframes pulsate {
+    from { box-shadow: 0 0 10px $color-normal; }
+    to { box-shadow: 0 0 20px $color-light; }
+}
+@-moz-keyframes pulsate {
+    from { box-shadow: 0 0 10px $color-normal; }
+    to { box-shadow: 0 0 20px $color-light; }
+}
+@keyframes pulsate {
+    from { box-shadow: 0 0 10px $color-normal; }
+    to { box-shadow: 0 0 20px $color-light; }
+}

@@ -5,15 +5,16 @@ controls {
   bottom: 0;
   left: 0;
   width: 100%;
+  border-top: 1px solid $color-light;
+  box-shadow: 0px 0px 13px 0px $color-light;
 
   .row {
     padding: 0.5rem;
-    background-color: $color-normal;
-    box-shadow: 0px 0px 7px 3px $color-darkest;
+    background-color: $color-darkest;
   }
   .main-controls {
     span {
-      background-color: $color-darkest;
+      //background-color: $color-darkest;
     }
   }
 }

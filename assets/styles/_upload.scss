@@ -1,8 +1,8 @@
 .drop-box {
-    width: 100%;
     background-color: lighten($color-black, 2);
     border: 1rem dotted $color-darkest;
     position: relative;
+    margin-bottom: 1rem;
 
     h1 {
       position: absolute;

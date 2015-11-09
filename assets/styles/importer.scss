@@ -1,35 +1,53 @@
-/**
- * importer.less
- *
- * By default, new Sails projects are configured to compile this file
- * from LESS to CSS.  Unlike CSS files, LESS files are not compiled and
- * included automatically unless they are imported below.
- *
- * The LESS files imported below are compiled and included in the order
- * they are listed.  Mixins, variables, etc. should be imported first
- * so that they can be accessed by subsequent LESS stylesheets.
- *
- * (Just like the rest of the asset pipeline bundled in Sails, you can
- * always omit, customize, or replace this behavior with SASS, SCSS,
- * or any other Grunt tasks you like.)
- */
+@import "variables";
+@import "../dependencies/bootstrap/scss/mixins";
 
+// Reset and dependencies
+@import "../dependencies/bootstrap/scss/normalize";
+@import "../dependencies/bootstrap/scss/print";
 
+// Core CSS
+@import "../dependencies/bootstrap/scss/reboot";
+@import "../dependencies/bootstrap/scss/type";
+@import "../dependencies/bootstrap/scss/images";
+@import "../dependencies/bootstrap/scss/code";
+@import "../dependencies/bootstrap/scss/grid";
+@import "../dependencies/bootstrap/scss/tables";
+@import "../dependencies/bootstrap/scss/forms";
+@import "../dependencies/bootstrap/scss/buttons";
 
-// For example:
-//
-// @import 'variables/colors.less';
-// @import 'mixins/foo.less';
-// @import 'mixins/bar.less';
-// @import 'mixins/baz.less';
-//
-// @import 'styleguide.less';
-// @import 'pages/login.less';
-// @import 'pages/signup.less';
-//
-// etc.
+// Components
+@import "../dependencies/bootstrap/scss/animation";
+@import "../dependencies/bootstrap/scss/dropdown";
+@import "../dependencies/bootstrap/scss/button-group";
+@import "../dependencies/bootstrap/scss/input-group";
+@import "../dependencies/bootstrap/scss/custom-forms";
+@import "../dependencies/bootstrap/scss/nav";
+@import "../dependencies/bootstrap/scss/navbar";
+@import "../dependencies/bootstrap/scss/card";
+@import "../dependencies/bootstrap/scss/breadcrumb";
+@import "../dependencies/bootstrap/scss/pagination";
+@import "../dependencies/bootstrap/scss/pager";
+@import "../dependencies/bootstrap/scss/labels";
+@import "../dependencies/bootstrap/scss/jumbotron";
+@import "../dependencies/bootstrap/scss/alert";
+@import "../dependencies/bootstrap/scss/progress";
+@import "../dependencies/bootstrap/scss/media";
+@import "../dependencies/bootstrap/scss/list-group";
+@import "../dependencies/bootstrap/scss/responsive-embed";
+@import "../dependencies/bootstrap/scss/close";
 
-@import '../dependencies/bootstrap/scss/bootstrap.scss';
+// Components w/ JavaScript
+@import "../dependencies/bootstrap/scss/modal";
+@import "../dependencies/bootstrap/scss/tooltip";
+@import "../dependencies/bootstrap/scss/popover";
+@import "../dependencies/bootstrap/scss/carousel";
+
+// Utility classes
+@import "../dependencies/bootstrap/scss/utilities";
+@import "../dependencies/bootstrap/scss/utilities-background";
+@import "../dependencies/bootstrap/scss/utilities-spacing";
+@import "../dependencies/bootstrap/scss/utilities-responsive";
+
 @import '../dependencies/components-font-awesome/scss/font-awesome.scss';
 @import 'colors';
 @import 'general';
@@ -37,4 +55,5 @@
 @import 'upload';
 @import 'controls';
 @import 'nav';
+@import 'playbutton';
 @import 'song';
