@@ -1,4 +1,4 @@
-var songFormats = ['.mp3', '.ogg', '.flac'];
+var songFormats = ['mp3', 'ogg', 'flac'];
 
 module.exports = {
 

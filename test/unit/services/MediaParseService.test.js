@@ -7,7 +7,7 @@ describe('MediaParseService', function() {
 
    describe('#parseDirectoryMedias()', function() {
       it('should get filenames from fs and call parseMedia with each file returning a promise', () => {
-        var filenames = ['/asd/', 'gfd/sds.dsf'];
+        var filenames = ['/asd/a.flac', 'gfd/sds.mp3'];
         var directory = '/asdasd';
 
         var fs = require('fs');
@@ -34,7 +34,7 @@ describe('MediaParseService', function() {
       });
 
       it('should return a rejection if one of the MediaParses fail', () => {
-        var filenames = ['/asd/', 'gfd/sds.dsf'];
+        var filenames = ['/asd/a.flac', 'gfd/sds.mp3'];
         var directory = '/asdasd';
 
         var fs = require('fs');
@@ -58,6 +58,33 @@ describe('MediaParseService', function() {
         .finally(function() {
           assert(fs.readdir.withArgs(directory).calledOnce);
           assert(MediaParseService.parseMediaFile.calledTwice);
+
+          mockery.deregisterMock('fs');
+          mockery.disable();
+          fs.readdir.restore();
+          MediaParseService.parseMediaFile.restore();
+        });
+      });
+
+      it('should ignore non audio files', () => {
+        var filenames = ['/asd/a.a', 'gfd/sds.fgdg'];
+        var directory = '/asdasd';
+
+        var fs = require('fs');
+        sinon.stub(fs, 'readdir', function(dir, cb) {
+          cb(null, filenames);
+        });
+
+        sinon.stub(MediaParseService, 'parseMediaFile', Promise.resolve);
+
+        mockery.enable();
+        mockery.registerMock('fs', fs);
+        mockery.registerAllowable('bluebird');
+        mockery.registerAllowable('path');
+
+        return MediaParseService.parseDirectoryMedias(directory).then(function() {
+          assert(fs.readdir.withArgs(directory).calledOnce);
+          assert(!MediaParseService.parseMediaFile.called);
 
           mockery.deregisterMock('fs');
           mockery.disable();
@@ -98,7 +125,7 @@ describe('MediaParseService', function() {
 
     it('should parse mediafile and  create new entries of songs and albums if no previous ones area found', () => {
         var testCoverUrl = '/asd/asd';
-        var testFilePAth = '/asd/asdsa/dsa.fdg';
+        var testFilePAth = '/asd/asdsa/dsa.mp3';
         var mock = require('sails-mock-models');
         mock.mockModel(Album, 'findOneByName', null);
         mock.mockModel(Album, 'create', testAlbum);
@@ -140,7 +167,7 @@ describe('MediaParseService', function() {
 
     it('should parse mediafile and  create new entries of songs and albums if no previous ones area found even when some of the data is incomplete', () => {
         var testCoverUrl = '/asd/asd';
-        var testFilePAth = '/asd/asdsa/dsa.fdg';
+        var testFilePAth = '/asd/asdsa/dsa.mp3';
         var mock = require('sails-mock-models');
         mock.mockModel(Album, 'findOneByName', null);
         mock.mockModel(Album, 'create', testAlbum);
@@ -184,7 +211,7 @@ describe('MediaParseService', function() {
 
     it('should parse mediafile and not create new entries if previous ones area found', () => {
         var testCoverUrl = '/asd/asd';
-        var testFilePAth = '/asd/asdsa/dsa.fdg';
+        var testFilePAth = '/asd/asdsa/dsa.mp3';
         var mock = require('sails-mock-models');
         mock.mockModel(Album, 'findOneByName', testAlbum);
         mock.mockModel(Album, 'create', null);
@@ -222,7 +249,7 @@ describe('MediaParseService', function() {
 
     it('should parsemedia file and create song entires but not update album with cover data if no cover is found from metadata', () => {
         var testCoverUrl = '/asd/asd';
-        var testFilePAth = '/asd/asdsa/dsa.fdg';
+        var testFilePAth = '/asd/asdsa/dsa.mp3';
         var mock = require('sails-mock-models');
         mock.mockModel(Album, 'findOneByName', testAlbum);
         mock.mockModel(Album, 'create', null);
