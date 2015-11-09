@@ -1,0 +1,12 @@
+song(ng-repeat="song in album.songs", song-id="{{::song.id}}").row
+  span.track-info.col-xs-10
+    span.text-muted {{::song.artist}}
+    span.title {{::song.title}} &nbsp;
+    seek-bar(ng-if="playing")
+      progress(value="{{currentTime}}", max="{{total}}").progress {{currentTime}}
+      div.row
+        small.col-xs-6.text-left{{currentTime | secondToTime | date:'m:ss'}}
+        small.col-xs-6.text-right{{total | secondToTime | date:'m:ss'}}
+
+  span.col-xs-2.right.text-right
+    span(ng-class="{align: playing}").track-number {{::song.trackNumber}}

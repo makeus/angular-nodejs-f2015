@@ -1,0 +1,5 @@
+navigation.nav.row
+  div(ng-click="setAlbumView()").col-xs-6.text-center
+    span(ng-class="{active: view === 'album'}") Albums
+  div(ng-click="setUploadView()").col-xs-6.text-center
+    span(ng-class="{active: view === 'upload'}") Upload

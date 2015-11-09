@@ -1,0 +1,15 @@
+.nav {
+  margin: $grid-gutter-width / 2 0;
+  color: $color-dark;
+  display: block;
+
+  & > div > span {
+    display: block;
+    width: 95%;
+  }
+
+  .active {
+    color: $color-light;
+    border-bottom: thin solid $color-light;
+  }
+}

@@ -7,7 +7,8 @@
       return $resource('/api/albums/:id', null, {
         query: {
           method: 'GET',
-          isArray: true
+          isArray: true,
+          cache: true
         }
       });
     }]);

@@ -1,0 +1,10 @@
+album(ng-if="albumOpen").row.album
+  div.row
+    div(style="background-image: url({{::album.cover}})").cover.col-xs-5
+    div.col-xs-7.album-info
+      h1 {{::album.name}}
+      p {{::album.year | date:'yyyy'}}
+      p {{::album.genre}}
+      p {{album.songs.length + ' tracks'}}
+  div.row.songs
+    include song.jade
