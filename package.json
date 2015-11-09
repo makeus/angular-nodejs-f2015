@@ -32,6 +32,7 @@
   "scripts": {
     "debug": "node debug app.js",
     "start": "node app.js",
+    "postinstall": "bower install --allow-root",
     "test": "istanbul cover -x \"**/config/**\" _mocha test/bootstrap.test.js test/unit/**/*.test.js  && istanbul report html"
   },
   "main": "app.js",
