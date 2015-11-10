@@ -3,8 +3,8 @@
 
     angular.module('musicPlayer:player', [])
 
-    .service('MusicPlayer', ['$q', function($q){
-      var audio, song, status;
+    .service('MusicPlayer', ['$window', function($window){
+      var audio, song, status = 'stopped';
       var playChangeCallbacks = [];
 
       this.STATUS_PLAYING = 'playing';
@@ -16,6 +16,9 @@
 
       var $this = this;
       this.play = function() {
+        if(!audio) {
+          return;
+        }
         _.forEach(playChangeCallbacks, function(cb) {
           cb($this.STATUS_PLAYING, song)
         });
@@ -24,6 +27,9 @@
       };
 
       this.stop = function() {
+        if(!audio) {
+          return;
+        }
         _.forEach(playChangeCallbacks, function(cb) {
           cb($this.STATUS_STOPPED, song)
         });

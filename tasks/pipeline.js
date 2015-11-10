@@ -19,28 +19,19 @@ var cssFilesToInject = [
   'styles/**/*.css'
 ];
 
-
-// Client-side javascript files to inject in order
-// (uses Grunt-style wildcard/glob/splat expressions)
-var jsFilesToInject = [
-
-  // Load sails.io before everything else
-  'dependencies/sails.io.js',
+var dependecyJsFilesToInject = [
   'dependencies/jquery/dist/jquery.js',
   'dependencies/angular/angular.js',
   'dependencies/angular-resource/angular-resource.js',
   'dependencies/ng-file-upload/ng-file-upload.js',
-  'dependencies/!(jquery|angular|ng-file-upload)/*.min.js',
-  'js/app.js',
-
-  // All of the rest of your client-side js files
-  // will be injected here in no particular order.
-  'js/**/*.js'
-
-  // Use the "exclude" operator to ignore files
-  // '!js/ignore/these/files/*.js'
-
+  'dependencies/!(jquery|angular|ng-file-upload)/*.min.js'
 ];
+
+
+var jsFilesToInject = dependecyJsFilesToInject.concat([
+  'js/app.js',
+  'js/**/*.js'
+]);
 
 
 // Client-side HTML templates are injected using the sources below
@@ -62,6 +53,7 @@ var templateFilesToInject = [
 // Prefix relative paths to source files so they point to the proper locations
 // (i.e. where the other Grunt tasks spit them out, or in some cases, where
 // they reside in the first place)
+module.exports.dependecyJsFilesToInject = dependecyJsFilesToInject.map(transformPath);
 module.exports.cssFilesToInject = cssFilesToInject.map(transformPath);
 module.exports.jsFilesToInject = jsFilesToInject.map(transformPath);
 module.exports.templateFilesToInject = templateFilesToInject.map(transformPath);

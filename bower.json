@@ -1,6 +1,6 @@
 {
-  "name": "sailspro",
-  "version": "0.0.0",
+  "name": "MusicPlayer",
+  "version": "0.0.1",
   "homepage": "https://github.com/makeus/angular-nodejs-f2015",
   "authors": [
     "Mathias Keus <mathias.keus@phz.fi>"
@@ -23,5 +23,8 @@
     "lodash": "~3.10.1",
     "components-font-awesome": "~4.4.0",
     "ng-file-upload": "~9.1.2"
+  },
+  "devDependencies": {
+    "angular-mocks": "~1.4.7"
   }
 }

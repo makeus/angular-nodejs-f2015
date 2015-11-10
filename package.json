@@ -1,8 +1,8 @@
 {
-  "name": "sailspro",
+  "name": "MusicPlayer",
   "private": true,
-  "version": "0.0.0",
-  "description": "a Sails application",
+  "version": "0.0.1",
+  "description": "Browser music player with streaming support",
   "keywords": [],
   "dependencies": {
     "bluebird": "^3.0.5",
@@ -33,7 +33,7 @@
     "debug": "node debug app.js",
     "start": "node app.js",
     "bower": "bower install --allow-root",
-    "test": "istanbul cover -x \"**/config/**\" _mocha test/bootstrap.test.js test/unit/**/*.test.js  && istanbul report html"
+    "test": "istanbul cover -x \"**/config/**\" -x \"**/tasks/**\" -x \" Gruntfile.js\" grunt test && istanbul report html"
   },
   "main": "app.js",
   "repository": {
@@ -43,10 +43,18 @@
   "author": "mathias",
   "license": "",
   "devDependencies": {
+    "grunt": "^0.4.2",
+    "grunt-karma": "^0.12.1",
+    "grunt-mocha-test": "^0.12.7",
     "grunt-sass": "^1.1.0",
     "istanbul": "^0.4.0",
+    "jasmine-core": "^2.3.4",
+    "karma": "^0.13.15",
+    "karma-jasmine": "~0.3.6",
+    "karma-phantomjs-launcher": "^0.2.1",
     "mocha": "^2.3.3",
     "mockery": "^1.4.0",
+    "phantomjs": "^1.9.18",
     "sails-mock-models": "0.0.6"
   }
 }

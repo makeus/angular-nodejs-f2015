@@ -38,7 +38,8 @@
       };
 
       this.setCurrentSong = function(id) {
-        this.current = _.indexOf(this.songs, id);
+        var index;
+        this.current = (index = _.indexOf(this.songs, id)) === -1 ? this.current : index;
       };
     }]);
 }());
