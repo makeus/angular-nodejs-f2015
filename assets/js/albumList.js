@@ -21,7 +21,7 @@
             $scope.albumOpen = false;
           };
 
-          this.albums = AlbumsRemote.query().$promise.then(function(data) {
+          this.albums = AlbumsRemote.query({sort: 'name ASC'}).$promise.then(function(data) {
             return data;
           });
 
