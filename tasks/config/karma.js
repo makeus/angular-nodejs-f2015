@@ -10,6 +10,14 @@ module.exports = function(grunt) {
             ],
             frameworks: ['jasmine'],
             browsers: ['PhantomJS'],
+            preprocessors: {
+              'assets/js/**/*.js': 'coverage'
+            },
+            reporters: 'coverage',
+            coverageReporter: {
+              subdir: '/',
+              dir : 'coverage/'
+            },
             singleRun: true
         },
         unit: {
