@@ -11,10 +11,13 @@ Music-server is a small project for the course angular.js programming project an
  * [Development](#Development)  
  * [Production](#Production)
 * [Testing](#Test)  
+* [Worklog](#Worklog)  
 
 <a name="Requirements"/>
 ## Requirements
+
 * Node.js >= 5.x.x
+
 <a name="Installation"/>
 ## Installation
 To install the server clone the repository to folder and run
@@ -53,4 +56,7 @@ node test
 ```
 This will run both clientside tests and node tests. Coverage report will be generated in the *coverage/* folder
 
-
+<a name="Worklog" />
+## Worklog
+Hours are logged here
+[Worklog.md](Worklog)
