@@ -22,6 +22,6 @@ Date  | Time | Comment
 07.11 | 8h   | Set up, setting up grunt scss parsing, jade parsing, bower, initial mechanics 
 08.11 | 16h  | Album list, single album view, audio playback + controls, navigation  
 09.11 | 5h   | Upload + styling   
-10.11 | 3h   | Angular tests
-**Total** | 32h
+10.11 | 6h   | Angular tests
+**Total** | 35h
 
