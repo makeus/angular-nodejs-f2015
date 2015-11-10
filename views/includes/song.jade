@@ -9,4 +9,4 @@ song(ng-repeat="song in album.songs", song-id="{{::song.id}}").row
         small(ng-if="total").col-xs-6.text-right {{total | secondToTime | date:'m:ss'}}
 
   span.col-xs-2.right.text-right
-    span(ng-class="{align: playing}").track-number {{::song.trackNumber}}
+    span(ng-class="{align: playing}", ng-if="song.trackNumber").track-number {{::song.trackNumber}}

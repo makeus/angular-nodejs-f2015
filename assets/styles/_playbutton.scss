@@ -19,7 +19,7 @@
       padding: 1.2rem 1.4rem 1.2rem 1.4rem;
     }
 
-    &.playing {
+    &.playing, &:hover {
       .fa {
         -webkit-animation: pulsate 0.5s infinite alternate;
         -moz-animation: pulsate 0.5s infinite alternate;

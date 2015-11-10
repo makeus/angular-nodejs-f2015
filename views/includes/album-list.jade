@@ -1,4 +1,4 @@
-album-list(ng-if="!view || view === 'album'", ng-cloak).albums
+album-list(ng-if="!view || view === 'album'").albums.ng-cloak
   div(ng-if="!albumOpen").row
     div(ng-repeat="album in albums", ng-click="openAlbum(album.id)").col-xs-6.col-sm-4.col-md-3.list-album
       div(style="background-image: url({{::album.cover}}), url(/images/placeholder.png)").cover
