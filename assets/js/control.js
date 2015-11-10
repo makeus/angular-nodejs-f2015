@@ -25,7 +25,7 @@
 
           $scope.stop = MusicPlayer.stop;
           $scope.play = function() {
-            if(!Playlist.songs || !Playlist.songs.length) {
+            if(!Playlist.hasSongs()) {
               return;
             }
             MusicPlayer.setSong(Playlist.getCurrentSong());

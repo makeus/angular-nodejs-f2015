@@ -13,8 +13,9 @@ module.exports = function(grunt) {
             preprocessors: {
               'assets/js/**/*.js': 'coverage'
             },
-            reporters: 'coverage',
+            reporters: ['coverage', 'dots'],
             coverageReporter: {
+              type: 'json',
               subdir: '/',
               dir : 'coverage/'
             },

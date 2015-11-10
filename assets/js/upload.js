@@ -28,9 +28,9 @@
           $scope.name = iAttrs.name;
           $scope.size = (iAttrs.size / 1000000).toFixed(2) + 'mb';
           var promise = $scope.$eval(iAttrs.promise)
-          .then(function (resp) {
+            .then(function () {
               $scope.complete = true;
-            }, function (resp) {
+            }, function () {
               $scope.failure = true;
             }, function (evt) {
               $scope.loaded = evt.loaded;

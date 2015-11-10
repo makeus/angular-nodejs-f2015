@@ -37,6 +37,10 @@
         }
       };
 
+      this.hasSongs = function() {
+        return Boolean(this.songs && this.songs.length);
+      };
+
       this.setCurrentSong = function(id) {
         var index;
         this.current = (index = _.indexOf(this.songs, id)) === -1 ? this.current : index;

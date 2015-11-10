@@ -77,4 +77,18 @@ describe('Playlist', function() {
         expect(Playlist.getCurrentSong()).toEqual(4);
       });
     });
+
+    describe('#hasSongs()', function() {
+      it('should return false when no songs are set', function() {
+        expect(Playlist.hasSongs()).toBe(false);
+        Playlist.songs = [];
+        expect(Playlist.hasSongs()).toBe(false);
+      });
+
+      it('should return true when songs are set', function() {
+        var songs = [1,4,64];
+        Playlist.setSongs(songs);
+        expect(Playlist.hasSongs()).toBe(true);
+      });
+    });
 });
