@@ -52,7 +52,7 @@ You can modified production configs by changing config/env/production.js
 ## Testing
 To test the code you need to run
 ```
-node test
+npm test
 ```
 This will run both clientside tests and node tests. Coverage report will be generated in the *coverage/* folder
 
