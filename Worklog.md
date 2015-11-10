@@ -13,6 +13,7 @@ Date  | Time | Comment
 07.11 | 4h   | More testing, setting views, responses
 07.11 | 4h   | More testing, setting views, responses
 10.11 | 4h   | Readme update, test running 
+**Total** |  44h
 
 ## Angular
 
@@ -22,4 +23,5 @@ Date  | Time | Comment
 08.11 | 16h  | Album list, single album view, audio playback + controls, navigation  
 09.11 | 5h   | Upload + styling   
 10.11 | 3h   | Angular tests
+**Total** | 32h
 
