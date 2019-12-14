@@ -13,8 +13,8 @@ Music-server is a small project for the course angular.js programming project an
 * [Testing](#Test)  
 * [Worklog](#Worklog)  
 
-<a name="Requirements"/>
-## Requirements
+
+## <a name="Requirements"/> Requirements
 
 * Node.js >= 5.x.x
 
