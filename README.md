@@ -4,8 +4,6 @@ Music-server is a small project for the course angular.js programming project an
 * A small api for uploading and downloading songs, and getting infos from uploaded albums and songs  
 * An angular HTML5 based music library and player.
 
-Demo [Here](http://37.139.28.30/)
-
 ### Table of Contents  
 * [Requirements](#Requirements)    
 * [Installation](#Installation)  
